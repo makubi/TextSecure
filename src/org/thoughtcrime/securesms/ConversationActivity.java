@@ -1246,9 +1246,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       @Override
       protected Void doInBackground(Long... params) {
         Context             context    = ConversationActivity.this;
-        List<SyncMessageId> messageIds = DatabaseFactory.getThreadDatabase(context).setRead(params[0]);
+        Long threadId = params[0];
+        List<SyncMessageId> messageIds = DatabaseFactory.getThreadDatabase(context).setRead(threadId);
 
-        MessageNotifier.updateNotification(context, masterSecret);
+        MessageNotifier.updateNotificationCancelRead(context, masterSecret, threadId);
 
         if (!messageIds.isEmpty()) {
           ApplicationContext.getInstance(context).getJobManager().add(new MultiDeviceReadUpdateJob(context, messageIds));

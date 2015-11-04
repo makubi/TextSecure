@@ -16,6 +16,9 @@ import org.thoughtcrime.securesms.jobs.MultiDeviceReadUpdateJob;
 import java.util.LinkedList;
 import java.util.List;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MarkReadReceiver extends MasterSecretBroadcastReceiver {
 
   private static final String TAG              = MarkReadReceiver.class.getSimpleName();
@@ -32,23 +35,22 @@ public class MarkReadReceiver extends MasterSecretBroadcastReceiver {
     final long[] threadIds = intent.getLongArrayExtra(THREAD_IDS_EXTRA);
 
     if (threadIds != null) {
-      Log.w("TAG", "threadIds length: " + threadIds.length);
-
-      ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE))
-                                   .cancel(MessageNotifier.NOTIFICATION_ID);
+      Log.w(TAG, "threadIds length: " + threadIds.length);
 
       new AsyncTask<Void, Void, Void>() {
         @Override
         protected Void doInBackground(Void... params) {
           List<SyncMessageId> messageIdsCollection = new LinkedList<>();
+          Set<Long> threadIdsAsSet = new HashSet<Long>();
 
           for (long threadId : threadIds) {
             Log.w(TAG, "Marking as read: " + threadId);
             List<SyncMessageId> messageIds = DatabaseFactory.getThreadDatabase(context).setRead(threadId);
             messageIdsCollection.addAll(messageIds);
+            threadIdsAsSet.add(threadId);
           }
 
-          MessageNotifier.updateNotification(context, masterSecret);
+          MessageNotifier.updateNotificationCancelRead(context, masterSecret, threadIdsAsSet);
 
           if (!messageIdsCollection.isEmpty()) {
             ApplicationContext.getInstance(context)

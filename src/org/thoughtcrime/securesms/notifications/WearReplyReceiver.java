@@ -83,7 +83,7 @@ public class WearReplyReceiver extends MasterSecretBroadcastReceiver {
           }
 
           List<SyncMessageId> messageIds = DatabaseFactory.getThreadDatabase(context).setRead(threadId);
-          MessageNotifier.updateNotification(context, masterSecret);
+          MessageNotifier.updateNotificationCancelRead(context, masterSecret, threadId);
 
           if (!messageIds.isEmpty()) {
             ApplicationContext.getInstance(context)
