@@ -1045,7 +1045,7 @@
     <string name="preferences_advanced__use_system_emoji">Use system emoji</string>
     <string name="preferences_advanced__disable_signal_built_in_emoji_support">Disable Signal\'s built-in emoji support</string>
     <string name="preferences_advanced__android_wear_notification_workaround">Android Wear notification workaround</string>
-    <string name="preferences_advanced__suppress_heads-up_notification_on_handheld">Suppress heads-up notification on handheld (affects Android 5.0, 5.1)</string>
+    <string name="preferences_advanced__suppress_heads_up_notification_on_handheld">Suppress heads-up notification on handheld (affects Android 5.0, 5.1)</string>
 
     <!-- **************************************** -->
     <!-- menus -->
@@ -1203,6 +1203,7 @@
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Transport icon</string>
+    <string name="ApplicationPreferencesActivity_disable_passphrase_locking_of_signal_and_message_notifications">Disable passphrase locking of signal and message notifications?</string>
 
 
     <!-- EOF -->
